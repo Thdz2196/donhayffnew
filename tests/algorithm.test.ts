@@ -5,7 +5,7 @@
 import { describe, it, expect, beforeEach } from 'vitest';
 import { computeSensitivity, nlpAnalyze, findBrand, findModel } from '../src/core/algorithm';
 import { TIER_BASE } from '../src/core/constants';
-import { createMockDeviceCatalog, createMockFormData } from './setup';
+import { createMockDeviceCatalog } from './setup';
 
 describe('Core Algorithm', () => {
   let catalog: any[];

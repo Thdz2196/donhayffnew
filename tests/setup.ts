@@ -8,7 +8,7 @@ import { vi } from 'vitest';
 // Mock Web Crypto API for Node.js environment
 if (typeof globalThis.crypto === 'undefined') {
   const { webcrypto } = await import('crypto');
-  globalThis.crypto = webcrypto;
+  globalThis.crypto = webcrypto as unknown as Crypto;
 }
 
 // Mock AudioContext
@@ -73,7 +73,7 @@ Object.defineProperty(window, 'localStorage', { value: localStorageMock });
 
 // Mock document.createElement for canvas
 const originalCreateElement = document.createElement.bind(document);
-document.createElement = vi.fn((tagName: string) => {
+(document as any).createElement = vi.fn((tagName: string) => {
   if (tagName === 'canvas') {
     return {
       getContext: vi.fn(() => ({
