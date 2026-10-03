@@ -6,10 +6,12 @@
 @import './_variables.css';
 @import './_reset.css';
 @import './_components.css';
+@import './_components-app.css';
 @import './_buttons.css';
 @import './_gauges.css';
 @import './_animations.css';
 @import './_admin-dashboard.css';
+@import './_responsive.css';
 
 /* ===== Global Utilities ===== */
 .container {
@@ -33,6 +35,7 @@
 
 /* ===== Print Styles ===== */
 @media print {
+
   #matrix-canvas,
   .btn,
   .toast-container,
@@ -315,15 +318,15 @@ dialog::backdrop {
   transition: transform var(--transition-spring);
 }
 
-.toggle input:checked + .toggle__slider {
+.toggle input:checked+.toggle__slider {
   background: var(--accent);
 }
 
-.toggle input:checked + .toggle__slider::before {
+.toggle input:checked+.toggle__slider::before {
   transform: translateX(20px);
 }
 
-.toggle input:focus-visible + .toggle__slider {
+.toggle input:focus-visible+.toggle__slider {
   outline: 2px solid var(--accent2);
   outline-offset: 2px;
 }
@@ -340,7 +343,22 @@ dialog::backdrop {
   color: var(--accent);
 }
 
-.badge--success { background: var(--ok-bg); color: var(--ok); }
-.badge--error { background: var(--err-bg); color: var(--err); }
-.badge--warning { background: var(--warn-bg); color: var(--warn); }
-.badge--info { background: var(--info-bg); color: var(--info); }
+.badge--success {
+  background: var(--ok-bg);
+  color: var(--ok);
+}
+
+.badge--error {
+  background: var(--err-bg);
+  color: var(--err);
+}
+
+.badge--warning {
+  background: var(--warn-bg);
+  color: var(--warn);
+}
+
+.badge--info {
+  background: var(--info-bg);
+  color: var(--info);
+}

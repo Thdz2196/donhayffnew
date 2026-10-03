@@ -44,7 +44,13 @@ export default defineConfig({
     }
   },
   define: {
-    __APP_VERSION__: JSON.stringify(process.env.npm_package_version),
-    __BUILD_TIME__: JSON.stringify(new Date().toISOString())
+    __APP_VERSION__: JSON.stringify(process.env.npm_package_version || '8.0.0'),
+    __BUILD_TIME__: JSON.stringify(new Date().toISOString()),
+    'process.env.LICENSE_SECRET_KEY': JSON.stringify(process.env.LICENSE_SECRET_KEY || 'ff-ob54-benz-secret-key-2026'),
+    'process.env.ADMIN_PASSWORD_HASH': JSON.stringify(process.env.ADMIN_PASSWORD_HASH || 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3'),
+    'process.env.npm_package_version': JSON.stringify(process.env.npm_package_version || '8.0.0'),
+    'process.env.UPSTASH_REDIS_REST_URL': JSON.stringify(process.env.UPSTASH_REDIS_REST_URL || ''),
+    'process.env.UPSTASH_REDIS_REST_TOKEN': JSON.stringify(process.env.UPSTASH_REDIS_REST_TOKEN || ''),
+    'process.env.NEXT_PUBLIC_SENTRY_DSN': JSON.stringify(process.env.NEXT_PUBLIC_SENTRY_DSN || '')
   }
 });

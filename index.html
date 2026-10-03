@@ -1,22 +1,161 @@
 <!DOCTYPE html>
 <html lang="vi">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <meta name="theme-color" content="#0b0d10">
-  <meta name="description" content="Free Fire Sensitivity Calculator OB54 - Tính toán độ nhạy chuẩn OB54 theo thiết bị thực tế">
+  <meta name="description"
+    content="Free Fire Sensitivity Calculator OB54 - Tính toán độ nhạy chuẩn OB54 theo thiết bị thực tế. Make By Benz.">
+  <meta name="keywords" content="free fire, sensitivity, ob54, calculator, benz">
+  <meta name="author" content="Benz">
+  <meta property="og:title" content="Free Fire Sensitivity OB54 · Make By Benz">
+  <meta property="og:description" content="Tính toán độ nhạy chuẩn OB54 theo thiết bị thực tế">
+  <meta property="og:type" content="website">
   <title>Free Fire Sensitivity OB54 · Make By Benz</title>
   <link rel="manifest" href="/manifest.json">
   <link rel="apple-touch-icon" href="/icons/icon-192.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/icons/icon-32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/icons/icon-16.png">
+  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3470957267334103" crossorigin="anonymous"></script>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
+  <!-- Critical inline CSS: prevent FOUC (flash of unstyled content) -->
+  <style>
+    :root {
+      --bg: #0b0d10;
+    }
+
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+      background: #0b0d10;
+    }
+
+    #app-root {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+    }
+
+    /* Initial loading screen */
+    #initial-loader {
+      position: fixed;
+      inset: 0;
+      background: #0b0d10;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      z-index: 9999;
+      transition: opacity 0.4s ease;
+    }
+
+    #initial-loader.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .init-logo {
+      width: 56px;
+      height: 56px;
+      border-radius: 16px;
+      background: linear-gradient(135deg, rgba(255, 51, 51, .12), rgba(204, 51, 255, .12));
+      border: 1px solid rgba(255, 215, 0, .2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      animation: logoPulse 2s ease-in-out infinite;
+    }
+
+    @keyframes logoPulse {
+
+      0%,
+      100% {
+        box-shadow: 0 0 0 0 rgba(255, 215, 0, 0);
+      }
+
+      50% {
+        box-shadow: 0 0 0 8px rgba(255, 215, 0, 0.08);
+      }
+    }
+
+    .init-logo svg {
+      width: 28px;
+      height: 28px;
+    }
+
+    .init-spinner {
+      width: 28px;
+      height: 28px;
+      border: 2px solid rgba(255, 255, 255, 0.06);
+      border-top-color: #ffd700;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    .init-text {
+      font-family: 'Be Vietnam Pro', -apple-system, sans-serif;
+      font-size: 11px;
+      font-weight: 600;
+      color: rgba(255, 255, 255, 0.3);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+  </style>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3470957267334103"
+    crossorigin="anonymous"></script>
 </head>
+
 <body>
+  <!-- Initial loading screen (hidden once JS loads) -->
+  <div id="initial-loader">
+    <div class="init-logo">
+      <svg viewBox="0 0 24 24" fill="none" stroke="url(#lg)" stroke-width="2" stroke-linecap="round">
+        <defs>
+          <linearGradient id="lg" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#ffd700" />
+            <stop offset="100%" stop-color="#cc33ff" />
+          </linearGradient>
+        </defs>
+        <circle cx="12" cy="12" r="8" opacity=".3" />
+        <circle cx="12" cy="12" r="2" />
+        <line x1="12" y1="2" x2="12" y2="6" />
+        <line x1="12" y1="18" x2="12" y2="22" />
+        <line x1="2" y1="12" x2="6" y2="12" />
+        <line x1="18" y1="12" x2="22" y2="12" />
+      </svg>
+    </div>
+    <div class="init-spinner"></div>
+    <span class="init-text">Loading OB54...</span>
+  </div>
+
   <div id="app-root"></div>
   <script type="module" src="./src/main.ts"></script>
+  <script>
+    // Hide loader once app JS finishes
+    window.addEventListener('DOMContentLoaded', () => {
+      const loader = document.getElementById('initial-loader');
+      setTimeout(() => {
+        if (loader) {
+          loader.classList.add('hidden');
+          setTimeout(() => loader.remove(), 400);
+        }
+      }, 600);
+    });
+  </script>
 </body>
+
 </html>

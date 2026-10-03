@@ -3,6 +3,8 @@
  * Initializes all components, handles state management, routing
  */
 
+import './assets/styles/main.css';
+
 import type { DeviceCatalog, SensitivityResult, FormData, AppConfig } from './core/types';
 import { computeSensitivity } from './core/algorithm';
 import { getConfig, saveConfig, getLastDevice, saveLastDevice, addToHistory } from './core/storage';

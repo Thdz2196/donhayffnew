@@ -1,51 +1,143 @@
 <!DOCTYPE html>
 <html lang="vi">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <meta name="theme-color" content="#0b0d10">
+  <meta name="robots" content="noindex, nofollow">
   <title>Admin Dashboard · Free Fire OB54</title>
   <link rel="manifest" href="/manifest.json">
+  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
+  <!-- Critical inline CSS: prevent FOUC -->
+  <style>
+    :root {
+      --bg: #0b0d10;
+    }
+
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+      background: #0b0d10;
+    }
+
+    body {
+      font-family: 'Be Vietnam Pro', -apple-system, sans-serif;
+      color: #dddce0;
+    }
+
+    #initial-loader {
+      position: fixed;
+      inset: 0;
+      background: #0b0d10;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      z-index: 9999;
+      transition: opacity 0.4s ease;
+    }
+
+    #initial-loader.hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .init-logo {
+      width: 56px;
+      height: 56px;
+      border-radius: 16px;
+      background: linear-gradient(135deg, rgba(255, 51, 51, .12), rgba(204, 51, 255, .12));
+      border: 1px solid rgba(255, 215, 0, .2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      animation: logoPulse 2s ease-in-out infinite;
+    }
+
+    @keyframes logoPulse {
+
+      0%,
+      100% {
+        box-shadow: 0 0 0 0 rgba(255, 215, 0, 0);
+      }
+
+      50% {
+        box-shadow: 0 0 0 8px rgba(255, 215, 0, 0.08);
+      }
+    }
+
+    .init-logo svg {
+      width: 28px;
+      height: 28px;
+    }
+
+    .init-spinner {
+      width: 28px;
+      height: 28px;
+      border: 2px solid rgba(255, 255, 255, 0.06);
+      border-top-color: #ffd700;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    .init-text {
+      font-size: 11px;
+      font-weight: 600;
+      color: rgba(255, 255, 255, 0.3);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+  </style>
 </head>
+
 <body>
+  <!-- Loading screen -->
+  <div id="initial-loader">
+    <div class="init-logo">
+      <svg viewBox="0 0 24 24" fill="none" stroke="url(#lg-a)" stroke-width="2" stroke-linecap="round">
+        <defs>
+          <linearGradient id="lg-a" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#ffd700" />
+            <stop offset="100%" stop-color="#6666ff" />
+          </linearGradient>
+        </defs>
+        <rect x="3" y="3" width="7" height="7" rx="1.5" />
+        <rect x="14" y="3" width="7" height="7" rx="1.5" />
+        <rect x="3" y="14" width="7" height="7" rx="1.5" />
+        <rect x="14" y="14" width="7" height="7" rx="1.5" />
+      </svg>
+    </div>
+    <div class="init-spinner"></div>
+    <span class="init-text">Admin Dashboard...</span>
+  </div>
+
   <div id="app-root"></div>
-  <script type="module">
-    import { AdminKeygen } from './src/components/AdminKeygen.ts';
-    import { AdminDashboard } from './src/components/AdminDashboard.ts';
-    import { MatrixRain } from './src/components/MatrixRain.ts';
-    import { getSoundEngine } from './src/components/SoundEngine.ts';
-    import deviceCatalog from './src/assets/data/device-catalog.json';
-
-    const SECRET_KEY = 'ff-ob54-benz-secret-key-2026';
-    const ADMIN_PASSWORD_HASH = 'a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3';
-
-    // Initialize background
-    const matrixRain = new MatrixRain();
-    matrixRain.start();
-
-    const soundEngine = getSoundEngine({ enabled: true });
-
-    // Initialize Admin Dashboard
-    const dashboard = new AdminDashboard({
-      onRefresh: () => dashboard?.refresh()
+  <script type="module" src="./src/admin.ts"></script>
+  <script>
+    window.addEventListener('DOMContentLoaded', () => {
+      const loader = document.getElementById('initial-loader');
+      setTimeout(() => {
+        if (loader) {
+          loader.classList.add('hidden');
+          setTimeout(() => loader.remove(), 400);
+        }
+      }, 800);
     });
-    document.body.appendChild(dashboard.getElement());
-
-    // Initialize Admin Keygen (mounted inside dashboard)
-    const keygen = new AdminKeygen({
-      catalog: deviceCatalog,
-      secretKey: SECRET_KEY,
-      adminPasswordHash: ADMIN_PASSWORD_HASH
-    });
-
-    // Make keygen globally accessible for dashboard to mount
-    window.AdminKeygen = keygen;
-
-    // Initialize dashboard after keygen is ready
-    dashboard.init();
   </script>
 </body>
+
 </html>

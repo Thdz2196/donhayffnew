@@ -1,0 +1,531 @@
+/**
+ * Responsive Layout System
+ * Full device coverage: 320px → 2560px
+ * Mobile-first, fluid typography, safe-area aware
+ * Make By Benz — Free Fire OB54
+ */
+
+/* ============================================
+   BASE RESPONSIVE VARIABLES (fluid scaling)
+   ============================================ */
+:root {
+    /* Fluid font-size: scale from 14px (320px screen) → 16px (768px+) */
+    --fs-base-px: clamp(13px, 3.5vw, 15px);
+
+    /* App panel max-width (responsive) */
+    --max-width: min(440px, 100%);
+    --panel-padding-h: clamp(12px, 4vw, 20px);
+    --panel-padding-v: clamp(14px, 4vw, 20px);
+}
+
+/* ============================================
+   HTML & BODY
+   ============================================ */
+html {
+    font-size: var(--fs-base-px);
+    /* Fix 100vh on iOS Safari (notch/home bar) */
+    height: -webkit-fill-available;
+}
+
+body {
+    min-height: 100vh;
+    min-height: -webkit-fill-available;
+    min-height: 100dvh;
+    /* modern browsers */
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    background: var(--bg);
+    font-family: var(--font-family);
+    color: var(--tx);
+    padding: clamp(8px, 3vw, 16px);
+    padding-bottom: max(clamp(8px, 3vw, 16px), env(safe-area-inset-bottom));
+    padding-left: max(clamp(8px, 3vw, 16px), env(safe-area-inset-left));
+    padding-right: max(clamp(8px, 3vw, 16px), env(safe-area-inset-right));
+    overflow-x: hidden;
+    overflow-y: auto;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    word-break: break-word;
+}
+
+/* ============================================
+   APP SHELL — Responsive width
+   ============================================ */
+.app {
+    width: 100%;
+    max-width: 100%;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    min-height: 100vh;
+    min-height: 100dvh;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.shell {
+    width: 100%;
+    max-width: var(--max-width);
+    position: relative;
+    z-index: var(--z-base);
+}
+
+/* ============================================
+   PANEL — Responsive padding & radius
+   ============================================ */
+.panel {
+    border-radius: clamp(12px, 4vw, 20px);
+    overflow: hidden;
+}
+
+.hd {
+    padding: var(--panel-padding-v) var(--panel-padding-h) calc(var(--panel-padding-v) - 4px);
+    gap: clamp(8px, 3vw, 12px);
+}
+
+.hd-mark {
+    width: clamp(34px, 9vw, 42px);
+    height: clamp(34px, 9vw, 42px);
+    border-radius: clamp(8px, 2.5vw, 13px);
+    flex-shrink: 0;
+}
+
+.hd-mark svg {
+    width: clamp(18px, 5vw, 22px);
+    height: clamp(18px, 5vw, 22px);
+}
+
+.hd-info h1 {
+    font-size: clamp(0.85rem, 4vw, 1rem);
+}
+
+.hd-info p {
+    font-size: clamp(0.48rem, 1.8vw, 0.58rem);
+}
+
+.hd-badge {
+    font-size: clamp(0.48rem, 1.8vw, 0.58rem);
+    padding: clamp(3px, 1vw, 5px) clamp(7px, 2.5vw, 10px);
+}
+
+.ct {
+    padding: var(--panel-padding-v) var(--panel-padding-h);
+}
+
+.ft {
+    padding: 8px var(--panel-padding-h) max(12px, env(safe-area-inset-bottom));
+    font-size: clamp(0.45rem, 1.8vw, 0.52rem);
+}
+
+/* ============================================
+   FORM ELEMENTS — Touch-friendly sizing
+   ============================================ */
+
+/* Minimum 44px touch target on mobile */
+.form-input,
+.form-select,
+.form-textarea,
+.fi {
+    min-height: 44px;
+    padding: clamp(9px, 2.5vw, 11px) clamp(12px, 3vw, 14px);
+    font-size: clamp(0.7rem, 3.5vw, 0.8rem);
+    border-radius: clamp(8px, 2.5vw, 10px);
+}
+
+.form-select,
+select.fi {
+    padding-right: clamp(28px, 8vw, 36px);
+}
+
+.form-textarea,
+textarea.fi {
+    min-height: clamp(56px, 18vw, 64px);
+}
+
+.form-label,
+.fg-name {
+    font-size: clamp(0.5rem, 2vw, 0.58rem);
+}
+
+/* ============================================
+   BUTTONS — Touch-friendly
+   ============================================ */
+.btn--sm {
+    min-height: 36px;
+    padding: clamp(6px, 2vw, 8px) clamp(10px, 3vw, 12px);
+    font-size: clamp(0.55rem, 2.2vw, 0.65rem);
+}
+
+.btn--md {
+    min-height: 44px;
+    padding: clamp(9px, 2.5vw, 11px) clamp(14px, 4vw, 18px);
+    font-size: clamp(0.65rem, 3vw, 0.75rem);
+}
+
+.btn--lg {
+    min-height: 48px;
+    padding: clamp(11px, 3vw, 13px) clamp(18px, 5vw, 24px);
+    font-size: clamp(0.7rem, 3.5vw, 0.82rem);
+}
+
+/* ============================================
+   LICENSE GATE — Centered on all screens
+   ============================================ */
+.license-icon {
+    width: clamp(48px, 14vw, 56px);
+    height: clamp(48px, 14vw, 56px);
+    border-radius: clamp(14px, 4vw, 18px);
+}
+
+.license-icon svg {
+    width: clamp(22px, 6vw, 26px);
+    height: clamp(22px, 6vw, 26px);
+}
+
+.license-title {
+    font-size: clamp(0.85rem, 4.5vw, 1rem);
+}
+
+.license-subtitle {
+    font-size: clamp(0.58rem, 2.8vw, 0.72rem);
+}
+
+.license-key-input {
+    min-height: 48px;
+    padding: clamp(11px, 3vw, 14px) clamp(12px, 3.5vw, 16px);
+    font-size: clamp(0.62rem, 3vw, 0.75rem);
+    letter-spacing: clamp(0.04em, 0.5vw, 0.1em);
+}
+
+/* ============================================
+   LOADING SPINNER (clo)
+   ============================================ */
+.clo-vis {
+    width: clamp(52px, 15vw, 64px);
+    height: clamp(52px, 15vw, 64px);
+}
+
+.clo-bar {
+    width: min(240px, 80vw);
+}
+
+.clo-title {
+    font-size: clamp(0.82rem, 4vw, 0.96rem);
+}
+
+/* ============================================
+   ADMIN DASHBOARD — Full responsive grid
+   ============================================ */
+.admin-dashboard {
+    padding: clamp(12px, 3vw, 24px) clamp(10px, 2.5vw, 24px);
+}
+
+.admin-dashboard__header {
+    padding: clamp(14px, 3vw, 20px) clamp(16px, 4vw, 24px);
+    gap: clamp(10px, 2vw, 16px);
+}
+
+.admin-dashboard__title {
+    font-size: clamp(0.9rem, 3.5vw, 1.5rem);
+}
+
+.admin-dashboard__subtitle {
+    font-size: clamp(0.5rem, 2vw, 0.65rem);
+}
+
+/* Stats: 4 col → 2 col → 1 col */
+.admin-dashboard__stats {
+    grid-template-columns: repeat(4, 1fr);
+}
+
+@media (max-width: 1100px) {
+    .admin-dashboard__stats {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 520px) {
+    .admin-dashboard__stats {
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+    }
+
+    .stat-card {
+        flex-direction: row;
+        padding: 14px;
+        gap: 10px;
+    }
+
+    .stat-card__icon {
+        width: 38px;
+        height: 38px;
+    }
+
+    .stat-card__icon svg {
+        width: 18px;
+        height: 18px;
+    }
+
+    .stat-card__value {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 360px) {
+    .admin-dashboard__stats {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Charts: 2-col → 1-col */
+.admin-dashboard__charts {
+    grid-template-columns: 2fr 1fr;
+}
+
+@media (max-width: 900px) {
+    .admin-dashboard__charts {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Tables: 2-col → 1-col */
+.admin-dashboard__tables {
+    grid-template-columns: 1fr 1fr;
+}
+
+@media (max-width: 800px) {
+    .admin-dashboard__tables {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* License stats: 3-col → 3-col small → 1-col */
+@media (max-width: 400px) {
+    .license-stats {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Admin header wrap */
+@media (max-width: 600px) {
+    .admin-dashboard__header {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+    }
+
+    .admin-dashboard__actions {
+        justify-content: space-between;
+    }
+
+    .admin-dashboard__title-row {
+        gap: 2px;
+    }
+}
+
+/* Chart canvas height */
+.chart-card__canvas-wrapper {
+    height: clamp(140px, 40vw, 200px);
+}
+
+/* Table responsive */
+.table-card__content {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+.admin-table {
+    min-width: 320px;
+}
+
+.admin-table th,
+.admin-table td {
+    padding: clamp(8px, 2vw, 12px) clamp(10px, 2.5vw, 16px);
+    font-size: clamp(0.52rem, 2vw, 0.65rem);
+    white-space: nowrap;
+}
+
+/* ============================================
+   RESULT PANEL — Responsive gauges
+   ============================================ */
+.gauges-container {
+    grid-template-columns: repeat(auto-fit, minmax(clamp(80px, 22vw, 110px), 1fr));
+    gap: clamp(8px, 2.5vw, 12px);
+}
+
+/* ============================================
+   GLOBAL TOUCH IMPROVEMENTS
+   ============================================ */
+/* Prevent text selection on interactive elements */
+button,
+.btn,
+.stat-card,
+.license-stat,
+.chart-card {
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+/* Remove tap highlight on iOS */
+a,
+button,
+input,
+select,
+textarea,
+.btn {
+    -webkit-tap-highlight-color: transparent;
+}
+
+/* ============================================
+   SMALL PHONES (< 360px)
+   ============================================ */
+@media (max-width: 360px) {
+    :root {
+        --panel-padding-h: 10px;
+        --panel-padding-v: 12px;
+    }
+
+    .hd {
+        flex-wrap: wrap;
+    }
+
+    .hd-info h1 {
+        font-size: 0.78rem;
+    }
+
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+
+    .result-actions {
+        flex-direction: column;
+    }
+}
+
+/* ============================================
+   TABLET (768px → 1024px)
+   ============================================ */
+@media (min-width: 768px) {
+    :root {
+        --max-width: min(460px, 96%);
+    }
+
+    html {
+        font-size: 15px;
+    }
+
+    body {
+        padding: 20px;
+        align-items: center;
+    }
+
+    .app {
+        padding-top: 16px;
+        padding-bottom: 16px;
+    }
+}
+
+/* ============================================
+   DESKTOP (> 1024px)
+   ============================================ */
+@media (min-width: 1024px) {
+    html {
+        font-size: 15px;
+    }
+
+    body {
+        padding: 24px;
+        align-items: flex-start;
+        padding-top: 40px;
+    }
+
+    /* Main app panel fixed width */
+    .shell {
+        max-width: 420px;
+    }
+
+    /* Admin full width */
+    .admin-dashboard {
+        max-width: 1440px;
+        margin: 0 auto;
+    }
+}
+
+/* ============================================
+   LANDSCAPE MOBILE
+   ============================================ */
+@media (max-height: 500px) and (orientation: landscape) {
+    body {
+        align-items: flex-start;
+        padding: 8px;
+    }
+
+    .hd {
+        padding: 10px 14px 8px;
+    }
+
+    .hd-mark {
+        width: 32px;
+        height: 32px;
+    }
+
+    .ct {
+        padding: 10px 14px;
+    }
+
+    .license-icon {
+        width: 40px;
+        height: 40px;
+    }
+
+    .clo {
+        padding: 20px;
+    }
+
+    .clo-vis {
+        width: 48px;
+        height: 48px;
+    }
+}
+
+/* ============================================
+   LARGE DESKTOP (> 1440px)
+   ============================================ */
+@media (min-width: 1440px) {
+    html {
+        font-size: 16px;
+    }
+
+    body {
+        padding: 32px;
+    }
+}
+
+/* ============================================
+   PRINT
+   ============================================ */
+@media print {
+    body {
+        background: white;
+        color: black;
+        padding: 0;
+    }
+
+    .panel::before,
+    .panel::after,
+    #matrix-canvas,
+    .btn,
+    .hd-badge,
+    .admin-dashboard__actions,
+    .admin-dashboard__header .btn--secondary {
+        display: none !important;
+    }
+
+    .panel {
+        box-shadow: none;
+        border: 1px solid #ddd;
+        backdrop-filter: none;
+    }
+}
