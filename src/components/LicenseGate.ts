@@ -4,7 +4,7 @@
  */
 
 import type { LicenseKeyData } from '../core/types';
-import { validateLicenseKey, generateFingerprint } from '../core/crypto';
+import { validateLicenseKey } from '../core/crypto';
 import { getLicenseCache, saveLicenseCache, clearLicenseCache } from '../core/storage';
 import { createPrimaryButton, createSecondaryButton } from './ui/Button';
 import { toast } from './ui/Toast';

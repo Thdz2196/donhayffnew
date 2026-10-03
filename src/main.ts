@@ -27,8 +27,8 @@ const ADMIN_PASSWORD_HASH = process.env.ADMIN_PASSWORD_HASH || 'a665a45920422f9d
 type ViewState = 'license' | 'form' | 'loading' | 'result';
 
 class App {
-  private state: ViewState = 'license';
-  private currentResult: SensitivityResult | null = null;
+  private _state: ViewState = 'license';
+  private _currentResult: SensitivityResult | null = null;
   private currentFormData: FormData | null = null;
 
   // Components
@@ -254,7 +254,7 @@ class App {
   }
 
   private switchView(view: ViewState): void {
-    this.state = view;
+    this._state = view;
 
     [this.viewLicense, this.viewForm, this.viewLoading, this.viewResult].forEach(v => v.classList.add('hide'));
     this.adminSection.style.display = 'none';
@@ -306,7 +306,7 @@ class App {
     // Char counter handled by form component
   }
 
-  private onLicenseValid(data: any): void {
+  private onLicenseValid(_data: any): void {
     this.switchView('form');
   }
 
@@ -345,7 +345,7 @@ class App {
       return;
     }
 
-    this.currentResult = result;
+    this._currentResult = result;
     this.soundEngine.playComplete();
 
     // Create result panel
@@ -530,6 +530,6 @@ document.addEventListener('DOMContentLoaded', async () => {
 // PWA Service Worker registration
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/sw.js').catch(() => {});
+    navigator.serviceWorker.register('/sw.js').catch(() => { });
   });
 }

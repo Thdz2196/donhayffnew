@@ -4,7 +4,7 @@
  */
 
 import type { GeneratedKey } from '../api/generate-keys';
-import { generateLicenseKey, hashPassword, verifyPassword } from '../core/crypto';
+import { generateLicenseKey } from '../core/crypto';
 import { createPrimaryButton, createSecondaryButton } from './ui/Button';
 import { toast } from './ui/Toast';
 import { t } from '../core/i18n';

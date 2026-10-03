@@ -173,10 +173,10 @@ export function createApiEndpoint(
     };
 
     try {
-      const response = await withSentry(
+      const response = await (withSentry(
         async () => handler(request, context),
         `api:${new URL(request.url).pathname}`
-      ) as Response;
+      ) as unknown as Promise<Response>);
 
       const headers = new Headers(response.headers);
       Object.entries(context.rateLimitHeaders).forEach(([key, value]) => {
@@ -203,15 +203,15 @@ export function createApiEndpoint(
   };
 }
 
-export async function validateBody<T>(
+export async function validateBody<T extends object>(
   request: Request,
   requiredFields: string[]
 ): Promise<{ data: T; error?: Response }> {
   try {
-    const body = await request.json() as T | object;
+    const body = await request.json() as T;
 
     for (const field of requiredFields) {
-      if (!(field in body) || body[field as keyof T] === undefined || body[field as keyof T] === '') {
+      if (!(field in body) || (body as Record<string, unknown>)[field] === undefined || (body as Record<string, unknown>)[field] === '') {
         return {
           data: body,
           error: createErrorResponse(`Missing required field: ${field}`, 400)

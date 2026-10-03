@@ -22,7 +22,7 @@ export class MatrixRain {
   private running = false;
   private resizeHandler: () => void;
 
-  constructor(options: MatrixRainOptions = {}) {
+  constructor(_options: MatrixRainOptions = {}) {
     this.options = {
       container: document.body,
       chars: 'アカサタナハマヤラワBENZ01234567890ΘΩΞΨβδφ',

@@ -28,7 +28,7 @@ export interface GeneratedKey {
 }
 
 export default createApiEndpoint(
-  async (request, context) => {
+  async (request, _context) => {
     const validation = await validateBody<GenerateKeyRequest>(request, ['brandKey', 'modelKey', 'adminPassword']);
     if (validation.error) return validation.error;
 

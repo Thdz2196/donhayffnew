@@ -89,7 +89,8 @@ export async function captureMessage(
   level: 'error' | 'warning' | 'info' | 'debug' = 'info',
   context?: { tags?: Record<string, string>; extra?: Record<string, any> }
 ): Promise<void> {
-  await captureException(message, { level, tags: context?.tags, extra: context?.extra });
+  const mappedLevel = level === 'debug' ? 'info' : level;
+  await captureException(message, { level: mappedLevel, tags: context?.tags, extra: context?.extra });
 }
 
 /**
@@ -107,7 +108,7 @@ export function addBreadcrumb(
   category: string,
   message: string,
   data?: Record<string, any>,
-  level: 'debug' | 'info' | 'warning' | 'error' = 'info'
+  _level: 'debug' | 'info' | 'warning' | 'error' = 'info'
 ): void {
   // In a real implementation, this would queue breadcrumbs
   console.log(`[Sentry Breadcrumb] ${category}: ${message}`, data);

@@ -16,7 +16,7 @@ interface ValidateKeyRequest {
 }
 
 export default createApiEndpoint(
-  async (request, context) => {
+  async (request, _context) => {
     const validation = await validateBody<ValidateKeyRequest>(request, ['key', 'brandKey', 'modelKey']);
     if (validation.error) return validation.error;
 

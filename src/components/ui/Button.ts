@@ -70,19 +70,17 @@ export class Button {
 
     if (disabled || loading) return;
 
-    // eslint-disable-next-line @typescript-eslint/no-misused-arrow-function
-    this.element.addEventListener('click', (e: MouseEvent) => {
+    this.element.addEventListener('click', ((e: MouseEvent) => {
       this.createRipple(e);
       onClick?.(e);
-    });
+    }) as EventListener);
 
-    // eslint-disable-next-line @typescript-eslint/no-misused-arrow-function
-    this.element.addEventListener('keydown', (e: KeyboardEvent) => {
+    this.element.addEventListener('keydown', ((e: KeyboardEvent) => {
       if (e.key === 'Enter' || e.key === ' ') {
         e.preventDefault();
         this.element.click();
       }
-    });
+    }) as EventListener);
   }
 
   private createRipple(e: MouseEvent): void {

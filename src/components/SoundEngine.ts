@@ -13,7 +13,7 @@ export class SoundEngine {
   private options: Required<SoundEngineOptions>;
   private enabled: boolean;
 
-  constructor(options: SoundEngineOptions = {}) {
+  constructor(_options: SoundEngineOptions = {}) {
     this.options = {
       enabled: true,
       volume: 0.3

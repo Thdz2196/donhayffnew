@@ -4,23 +4,13 @@
  * Features: SSE live updates, Chart.js visualizations, responsive layout
  */
 
-import { createPrimaryButton, createSecondaryButton } from './ui/Button';
-import { toast } from './ui/Toast';
-import { t } from '../core/i18n';
+
 
 interface AdminDashboardOptions {
   onRefresh?: () => void;
 }
 
-interface AnalyticsData {
-  totalEvents: number;
-  eventsByType: Record<string, number>;
-  eventsByHour: Record<string, number>;
-  topDevices: Array<{ brand: string; model: string; count: number }>;
-  licenseValidations: { success: number; failed: number };
-  period: string;
-  timestamp: number;
-}
+
 
 interface ChartDataset {
   label: string;
@@ -32,20 +22,17 @@ interface ChartDataset {
   tension?: number;
 }
 
-interface ChartData {
-  labels: string[];
-  datasets: ChartDataset[];
-}
+
 
 export class AdminDashboard {
-  private options: AdminDashboardOptions;
+  private _options: AdminDashboardOptions;
   private container: HTMLElement;
   private eventSource: EventSource | null = null;
   private refreshInterval: number | null = null;
   private isVisible = false;
 
   constructor(options: AdminDashboardOptions = {}) {
-    this.options = options;
+    this._options = options;
     this.container = this.createElement();
     this.bindEvents();
   }
@@ -328,7 +315,7 @@ export class AdminDashboard {
 
   private updateStat(id: string, value: string): void {
     const el = this.container.querySelector(`#stat-${id}`) ||
-               this.container.querySelector(`#${id}`);
+      this.container.querySelector(`#${id}`);
     if (el) {
       el.textContent = value;
       el.classList.add('stat-card__value--updated');

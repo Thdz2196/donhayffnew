@@ -110,7 +110,7 @@ export function showToast(options: ToastOptions): string {
   });
 
   element.addEventListener('mouseleave', () => {
-    const newTimeoutId = window.setTimeout(() => {
+    const _newTimeoutId = window.setTimeout(() => {
       removeToast(element);
     }, 2000);
   });

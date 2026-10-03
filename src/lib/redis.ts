@@ -169,11 +169,12 @@ class UpstashRedisSDK implements RedisClient {
   }
 
   async expire(key: string, seconds: number): Promise<number> {
-    return this.client.expire(key, seconds);
+    const result = await this.client.expire(key, seconds);
+    return result ? 1 : 0;
   }
 
   async zadd(key: string, score: number, member: string): Promise<number> {
-    return this.client.zadd(key, { score, member });
+    return (await this.client.zadd(key, { score, member })) ?? 0;
   }
 
   async zrem(key: string, member: string): Promise<number> {
@@ -181,7 +182,7 @@ class UpstashRedisSDK implements RedisClient {
   }
 
   async zrangebyscore(key: string, min: number, max: number): Promise<string[]> {
-    return this.client.zrangebyscore(key, min, max);
+    return this.client.zrange(key, min, max, { byScore: true }) as Promise<string[]>;
   }
 
   async zcard(key: string): Promise<number> {
@@ -310,7 +311,7 @@ export class FixedWindowRateLimiter {
     };
   }
 
-  async reset(identifier: string): Promise<void> {
+  async reset(_identifier: string): Promise<void> {
     // Would need SCAN to find all keys, skip for simplicity
   }
 }
@@ -444,5 +445,3 @@ export async function getAnalyticsSummary(hours: number = 24): Promise<Analytics
     licenseValidations: { success: licenseSuccess, failed: licenseFailed }
   };
 }
-
-export type { RedisClient };
