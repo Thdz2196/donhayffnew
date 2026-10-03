@@ -3,7 +3,7 @@
  * POST /api/generate-keys
  */
 
-import { generateLicenseKey, verifyPassword } from '../../core/crypto';
+import { generateLicenseKey, verifyPassword } from '../core/crypto';
 import { createApiEndpoint, validateBody, trackApiEvent, createErrorResponse } from '../lib/api-middleware';
 
 const SECRET_KEY = process.env.LICENSE_SECRET_KEY || 'ff-ob54-benz-secret-key-2026';
@@ -18,7 +18,7 @@ interface GenerateKeyRequest {
   adminPassword: string;
 }
 
-interface GeneratedKey {
+export interface GeneratedKey {
   brandKey: string;
   modelKey: string;
   expiryDays: number;

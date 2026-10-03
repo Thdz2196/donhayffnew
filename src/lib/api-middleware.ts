@@ -176,7 +176,7 @@ export function createApiEndpoint(
       const response = await withSentry(
         async () => handler(request, context),
         `api:${new URL(request.url).pathname}`
-      );
+      ) as Response;
 
       const headers = new Headers(response.headers);
       Object.entries(context.rateLimitHeaders).forEach(([key, value]) => {
@@ -196,7 +196,7 @@ export function createApiEndpoint(
       const errorResponse = createErrorResponse(
         error instanceof Error ? error.message : 'Internal server error',
         500,
-        context.rateLimitHeaders
+        context.rateLimitHeaders as unknown as Record<string, string>
       );
       return errorResponse;
     }
@@ -208,7 +208,7 @@ export async function validateBody<T>(
   requiredFields: string[]
 ): Promise<{ data: T; error?: Response }> {
   try {
-    const body = await request.json() as T;
+    const body = await request.json() as T | object;
 
     for (const field of requiredFields) {
       if (!(field in body) || body[field as keyof T] === undefined || body[field as keyof T] === '') {

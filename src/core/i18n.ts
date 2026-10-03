@@ -6,7 +6,7 @@
 import type { AppConfig } from './types';
 
 type Locale = 'vi' | 'en';
-type TranslationMap = Record<string, string>;
+type TranslationMap = Record<string, string | string[]>;
 
 const translations: Record<Locale, TranslationMap> = {
   vi: {
@@ -251,13 +251,15 @@ export function t(key: string, params?: Record<string, string | number>): string
   const dict = translations[currentLocale] || translations.vi;
   let str = dict[key] || translations.vi[key] || key;
 
-  if (params) {
-    for (const [k, v] of Object.entries(params)) {
-      str = str.replace(new RegExp(`\\{${k}\\}`, 'g'), String(v));
+  if (typeof str === 'string') {
+    if (params) {
+      for (const [k, v] of Object.entries(params)) {
+        str = str.replace(new RegExp(`\\{${k}\\}`, 'g'), String(v));
+      }
     }
   }
 
-  return str;
+  return str as string;
 }
 
 /**

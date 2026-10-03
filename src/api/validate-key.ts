@@ -3,7 +3,7 @@
  * POST /api/validate-key
  */
 
-import { hmacSha256 } from '../../core/crypto';
+import { hmacSha256 } from '../core/crypto';
 import { createApiEndpoint, validateBody, trackApiEvent, createErrorResponse } from '../lib/api-middleware';
 
 const SECRET_KEY = process.env.LICENSE_SECRET_KEY || 'ff-ob54-benz-secret-key-2026';

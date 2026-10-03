@@ -36,7 +36,7 @@ export class Button {
     }
 
     el.className = `btn btn--${variant} btn--${size} ${fullWidth ? 'btn--full' : ''} ${disabled ? 'btn--disabled' : ''} ${loading ? 'btn--loading' : ''}`;
-    el.disabled = disabled || loading;
+    (el as HTMLButtonElement).disabled = disabled || loading;
 
     if (ariaLabel) {
       el.setAttribute('aria-label', ariaLabel);
@@ -70,11 +70,13 @@ export class Button {
 
     if (disabled || loading) return;
 
+    // eslint-disable-next-line @typescript-eslint/no-misused-arrow-function
     this.element.addEventListener('click', (e: MouseEvent) => {
       this.createRipple(e);
       onClick?.(e);
     });
 
+    // eslint-disable-next-line @typescript-eslint/no-misused-arrow-function
     this.element.addEventListener('keydown', (e: KeyboardEvent) => {
       if (e.key === 'Enter' || e.key === ' ') {
         e.preventDefault();
@@ -108,7 +110,7 @@ export class Button {
 
   public setLoading(loading: boolean): void {
     this.element.classList.toggle('btn--loading', loading);
-    (this.element as HTMLButtonElement).disabled = loading || this.options.disabled;
+    (this.element as HTMLButtonElement).disabled = loading || this.options.disabled!;
 
     const spinner = this.element.querySelector('.btn__spinner');
     if (loading && !spinner) {

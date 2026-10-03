@@ -59,7 +59,7 @@ export class DeviceSelector {
     this.brandSelect = document.createElement('select');
     this.brandSelect.id = 'brand-select';
     this.brandSelect.className = 'form-select';
-    this.brandSelect.disabled = this.options.disabled;
+    this.brandSelect.disabled = this.options.disabled!;
     this.brandSelect.setAttribute('aria-label', t('brand_label'));
     brandGroup.appendChild(this.brandSelect);
 

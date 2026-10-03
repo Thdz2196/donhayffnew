@@ -4,7 +4,7 @@
  * Pure TypeScript, zero dependencies, fully testable
  */
 
-import type { DeviceCatalog, DeviceModel, NLPResult, SensitivityResult } from './types';
+import type { DeviceCatalog, DeviceModel, NLPResult, NLPScores, SensitivityResult } from './types';
 import { TIER_BASE, TIER_ORDER, PLAYSTYLES, NLP_RULES } from './constants';
 import { fnv1a, Xorshift128, cl, gaussian, sR } from './crypto';
 
@@ -72,7 +72,7 @@ export function nlpAnalyze(text: string): NLPResult {
     totalHits += hits;
   }
 
-  return { scores, totalHits };
+  return { scores, totalHits } as unknown as NLPResult;
 }
 
 /**

@@ -286,11 +286,11 @@ export class AdminKeygen {
   }
 
   private renderResults(): void {
-    const { keys } = this;
+    const { generatedKeys } = this;
 
     const header = document.createElement('div');
     header.className = 'admin-result-header';
-    header.innerHTML = `<h3>${t('admin_result', { count: keys.length })}</h3>`;
+    header.innerHTML = `<h3>${t('admin_result', { count: generatedKeys.length })}</h3>`;
     this.resultContainer.appendChild(header);
 
     const actions = document.createElement('div');
@@ -322,7 +322,7 @@ export class AdminKeygen {
     const list = document.createElement('div');
     list.className = 'admin-keys-list';
 
-    keys.forEach((keyData) => {
+    generatedKeys.forEach((keyData) => {
       const item = document.createElement('div');
       item.className = 'admin-key-item';
 

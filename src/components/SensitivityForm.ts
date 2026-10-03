@@ -61,7 +61,7 @@ export class SensitivityForm {
     this.playstyleSelect = document.createElement('select');
     this.playstyleSelect.id = 'playstyle-select';
     this.playstyleSelect.className = 'form-select';
-    this.playstyleSelect.disabled = this.options.disabled;
+    this.playstyleSelect.disabled = this.options.disabled!;
     this.playstyleSelect.innerHTML = `
       <option value="rusher">${t('playstyle_rusher')}</option>
       <option value="balanced" selected>${t('playstyle_balanced')}</option>
@@ -97,7 +97,7 @@ export class SensitivityForm {
     this.issueTextarea.placeholder = t('issue_placeholder');
     this.issueTextarea.maxLength = 200;
     this.issueTextarea.rows = 3;
-    this.issueTextarea.disabled = this.options.disabled;
+    this.issueTextarea.disabled = this.options.disabled!;
     this.issueTextarea.setAttribute('aria-describedby', 'issue-hint');
     issueGroup.appendChild(this.issueTextarea);
 
