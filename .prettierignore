@@ -1,0 +1,25 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+build/
+
+# Config files (handled by their own formatters)
+*.config.*
+*.lock
+
+# Generated files
+public/icons/*.png
+public/sw.js
+
+# Scripts
+scripts/
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
